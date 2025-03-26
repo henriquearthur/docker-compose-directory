@@ -1,167 +1,103 @@
+import { ComposeFile, getComposeFileById } from '@/lib/data';
+import { Loader2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import LayoutWrapper from '@/components/LayoutWrapper';
-import { getComposeFileById, getCategoryById } from '@/lib/data';
-import { getAnimationStyle } from '@/lib/animations';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import { Link } from 'react-router-dom';
-import * as LucideIcons from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const DetailPage = () => {
-  const { composeId } = useParams<{ composeId: string }>();
+const DetailPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const codeRef = useRef<HTMLPreElement>(null);
-  const [copied, setCopied] = useState(false);
-  
-  const composeFile = composeId ? getComposeFileById(composeId) : undefined;
-  const category = composeFile ? getCategoryById(composeFile.category) : undefined;
-  
-  useEffect(() => {
-    if (!composeFile) {
-      navigate('/not-found');
-    }
-  }, [composeFile, navigate]);
+  const [composeFile, setComposeFile] = useState<ComposeFile | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
-  if (!composeFile || !category) {
-    return null;
+  useEffect(() => {
+    const loadComposeFile = async () => {
+      if (!id) {
+        navigate('/not-found');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const file = await getComposeFileById(id);
+
+        // Only redirect to not-found if we've loaded the data and still can't find the file
+        if (!file) {
+          navigate('/not-found');
+          return;
+        }
+
+        setComposeFile(file);
+      } catch (error) {
+        console.error('Error loading compose file:', error);
+        navigate('/not-found');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadComposeFile();
+  }, [id, navigate]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="mt-4 text-muted-foreground">Loading compose file...</p>
+      </div>
+    );
   }
 
-  const copyToClipboard = () => {
-    if (navigator.clipboard && composeFile) {
-      navigator.clipboard.writeText(composeFile.content)
-        .then(() => {
-          setCopied(true);
-          toast.success('Copied to clipboard!');
-          setTimeout(() => setCopied(false), 2000);
-        })
-        .catch(() => {
-          toast.error('Failed to copy!');
-        });
-    }
-  };
+  if (!composeFile) {
+    return null; // This shouldn't happen as we redirect in the useEffect
+  }
 
-  const downloadFile = () => {
-    const element = document.createElement('a');
-    const file = new Blob([composeFile.content], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = `docker-compose-${composeFile.id}.yml`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    toast.success('File downloaded!');
-  };
-
-  // Get icon dynamically
-  const CategoryIcon = LucideIcons[category.icon as keyof typeof LucideIcons] || LucideIcons.Box;
-
+  // Render your compose file details here
   return (
-    <LayoutWrapper>
-      <div 
-        className="mb-8"
-        style={getAnimationStyle('slideDown')}
-      >
-        <div className="flex items-center mb-6">
-          <button 
-            onClick={() => navigate(-1)}
-            className="mr-4 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <LucideIcons.ArrowLeft className="h-5 w-5" />
-            <span className="sr-only">Back</span>
-          </button>
-          
-          <h1 className="text-3xl font-bold">{composeFile.name}</h1>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
-          <Link 
-            to={`/category/${category.id}`}
-            className={cn(
-              "inline-flex items-center text-sm rounded-full px-3 py-1",
-              category.color
-            )}
-          >
-            <CategoryIcon className="h-4 w-4 mr-1.5" />
-            {category.name}
-          </Link>
-          
-          <div className="flex flex-wrap gap-2">
-            {composeFile.tags.map(tag => (
-              <span 
-                key={tag} 
-                className="text-xs px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground"
-              >
-                {tag}
+    <div className="container py-10">
+      <h1 className="text-3xl font-bold mb-6">{composeFile.name}</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Left column with metadata */}
+        <div className="md:col-span-1">
+          <div className="rounded-lg border border-border p-6 bg-card">
+            <p className="text-muted-foreground mb-4">{composeFile.description}</p>
+
+            <div className="mb-4">
+              <h3 className="font-medium mb-2">Category</h3>
+              <span className="px-2 py-1 rounded-full bg-secondary text-secondary-foreground text-sm">
+                {composeFile.category}
               </span>
-            ))}
+            </div>
+
+            <div className="mb-4">
+              <h3 className="font-medium mb-2">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {composeFile.tags.map(tag => (
+                  <span key={tag} className="px-2 py-1 rounded-full bg-secondary text-secondary-foreground text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center text-sm text-muted-foreground">
+              <div>Stars: {composeFile.stars}</div>
+              <div>Downloads: {composeFile.downloads}</div>
+            </div>
           </div>
         </div>
-        
-        <p className="text-lg mb-6">{composeFile.description}</p>
-        
-        <div className="flex flex-wrap gap-3 mb-8">
-          <Button onClick={copyToClipboard} className="gap-2">
-            {copied ? (
-              <LucideIcons.Check className="h-4 w-4" />
-            ) : (
-              <LucideIcons.Copy className="h-4 w-4" />
-            )}
-            {copied ? 'Copied!' : 'Copy to Clipboard'}
-          </Button>
-          
-          <Button variant="outline" onClick={downloadFile} className="gap-2">
-            <LucideIcons.Download className="h-4 w-4" />
-            Download
-          </Button>
+
+        {/* Right column with compose file content */}
+        <div className="md:col-span-2">
+          <div className="rounded-lg border border-border p-6 bg-card">
+            <h2 className="text-xl font-bold mb-4">docker-compose.yml</h2>
+            <pre className="p-4 bg-secondary rounded-md overflow-auto">
+              <code>{composeFile.content}</code>
+            </pre>
+          </div>
         </div>
       </div>
-      
-      <div 
-        className="rounded-lg border border-border overflow-hidden bg-card"
-        style={getAnimationStyle('fadeIn', { delay: 0.1 })}
-      >
-        <div className="flex items-center justify-between px-4 py-2 bg-muted">
-          <span className="text-sm font-medium">docker-compose.yml</span>
-          <button 
-            onClick={copyToClipboard}
-            className="p-1 rounded hover:bg-background/50 transition-colors"
-          >
-            {copied ? (
-              <LucideIcons.Check className="h-4 w-4 text-green-500" />
-            ) : (
-              <LucideIcons.Copy className="h-4 w-4 text-muted-foreground" />
-            )}
-          </button>
-        </div>
-        <pre 
-          ref={codeRef}
-          className="p-4 overflow-auto text-sm font-mono"
-        >
-          <code>{composeFile.content}</code>
-        </pre>
-      </div>
-      
-      <div 
-        className="mt-8 flex flex-col sm:flex-row items-center justify-between p-6 rounded-lg border border-border bg-card"
-        style={getAnimationStyle('slideUp', { delay: 0.2 })}
-      >
-        <div className="flex items-center mb-4 sm:mb-0">
-          <LucideIcons.Star className="h-5 w-5 text-amber-500 mr-2" />
-          <span className="font-medium mr-6">{composeFile.stars} Stars</span>
-          
-          <LucideIcons.Download className="h-5 w-5 text-muted-foreground mr-2" />
-          <span className="font-medium">{composeFile.downloads} Downloads</span>
-        </div>
-        
-        <div className="text-sm text-muted-foreground">
-          <span>Created: {new Date(composeFile.createdAt).toLocaleDateString()}</span>
-          <span className="mx-2">•</span>
-          <span>Updated: {new Date(composeFile.updatedAt).toLocaleDateString()}</span>
-        </div>
-      </div>
-    </LayoutWrapper>
+    </div>
   );
 };
 

@@ -86,6 +86,9 @@ composeFiles = [
   }
 ];
 
+// Data loading state tracking
+export let dataInitialized = false;
+
 export async function initializeData() {
   const files = await getComposeFiles();
 
@@ -97,6 +100,9 @@ export async function initializeData() {
     stars: 0,
     downloads: 0
   })));
+
+  // Set data as initialized
+  dataInitialized = true;
 }
 
 // Helper functions
@@ -104,7 +110,12 @@ export const getComposeFilesByCategory = (categoryId: string): ComposeFile[] => 
   return composeFiles.filter(file => file.category === categoryId);
 };
 
-export const getComposeFileById = (id: string): ComposeFile | undefined => {
+export const getComposeFileById = async (id: string): Promise<ComposeFile | undefined> => {
+  // If data isn't loaded yet, initialize it first
+  if (!dataInitialized) {
+    await initializeData();
+  }
+
   return composeFiles.find(file => file.id === id);
 };
 
