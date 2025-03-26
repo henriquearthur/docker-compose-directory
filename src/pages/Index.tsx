@@ -1,13 +1,18 @@
-
 import CategoryCard from '@/components/CategoryCard';
 import ComposeCard from '@/components/ComposeCard';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import { getAnimationStyle } from '@/lib/animations';
-import { categories, composeFiles } from '@/lib/data';
-import { useState } from 'react';
+import { categories, composeFiles, initializeData } from '@/lib/data';
+import { useEffect, useState } from 'react';
 
 const Index = () => {
   const [featured, setFeatured] = useState(composeFiles.slice(0, 6));
+
+  useEffect(() => {
+    initializeData().then(() => {
+      setFeatured(composeFiles.slice(0, 6));
+    });
+  }, []);
 
   return (
     <LayoutWrapper className="space-y-16">

@@ -1,0 +1,7 @@
+[
+    "mysql",
+    "mongodb",
+    "postgresql",
+    "nginx",
+    "redis"
+]
