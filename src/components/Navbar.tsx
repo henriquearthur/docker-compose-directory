@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
           <Link 
             to="/" 
             className="flex items-center space-x-2 shrink-0"
-            aria-label="Docker Compose Directory"
+            aria-label="docker-compose-directory"
           >
             <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
               <span className="sr-only">Logo</span>
@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
               </svg>
             </div>
             <span className="font-medium text-foreground hidden sm:inline-block">
-              Docker Compose Directory
+              docker-compose-directory
             </span>
           </Link>
 

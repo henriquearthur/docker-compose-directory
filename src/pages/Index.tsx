@@ -18,7 +18,7 @@ const Index = () => {
           className="max-w-3xl mx-auto"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Docker Compose Directory
+            docker-compose-directory
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             A curated collection of Docker Compose files for your development and production needs
