@@ -1,14 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
-import LayoutWrapper from '@/components/LayoutWrapper';
 import CategoryCard from '@/components/CategoryCard';
 import ComposeCard from '@/components/ComposeCard';
-import { categories, composeFiles } from '@/lib/data';
+import LayoutWrapper from '@/components/LayoutWrapper';
 import { getAnimationStyle } from '@/lib/animations';
+import { categories, composeFiles } from '@/lib/data';
+import { useState } from 'react';
 
 const Index = () => {
   const [featured, setFeatured] = useState(composeFiles.slice(0, 6));
-  
+
   return (
     <LayoutWrapper className="space-y-16">
       {/* Hero Section */}
@@ -18,20 +18,20 @@ const Index = () => {
           className="max-w-3xl mx-auto"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            docker-compose-directory
+            Docker Compose Directory
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             A curated collection of Docker Compose files for your development and production needs
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a 
-              href="#categories" 
+            <a
+              href="#categories"
               className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               Browse Categories
             </a>
-            <a 
-              href="#featured" 
+            <a
+              href="#featured"
               className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
               Featured Templates
@@ -51,11 +51,11 @@ const Index = () => {
             Explore Docker Compose files organized by technology type and use case
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category, index) => (
-            <CategoryCard 
-              key={category.id} 
+            <CategoryCard
+              key={category.id}
               category={category}
               index={index}
             />
@@ -74,11 +74,11 @@ const Index = () => {
             Most downloaded and starred Docker Compose configurations
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map((composeFile, index) => (
-            <ComposeCard 
-              key={composeFile.id} 
+            <ComposeCard
+              key={composeFile.id}
               composeFile={composeFile}
               index={index}
             />
