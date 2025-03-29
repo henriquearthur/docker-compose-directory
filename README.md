@@ -1,69 +1,41 @@
-# Welcome to your Lovable project
+# Docker Compose Directory
 
-## Project info
+A curated collection of ready-to-use Docker Compose configurations for popular development tools and services. This repository aims to provide a comprehensive library of Docker Compose files to help developers quickly set up their development environment.
 
-**URL**: https://lovable.dev/projects/79c3977f-5bdd-49e8-b423-80d25799304a
+Check it out on [docker-compose.directory](https://docker-compose.directory/)
 
-## How can I edit this code?
+## Contributing
 
-There are several ways of editing your application.
+We welcome contributions! Help us keep this library up-to-date and comprehensive.
 
-**Use Lovable**
+### How to Add a New Docker Compose Configuration
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/79c3977f-5bdd-49e8-b423-80d25799304a) and start prompting.
+1. Create a new directory under `public/docker-composes/[service-name]`
+2. Add two files:
+   ```
+   docker-compose.yml  # Your Docker Compose configuration
+   metadata.yml       # Service metadata
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+3. The `metadata.yml` should follow this format:
+   ```yaml
+   id: [service-name]
+   name: [Display Name]
+   description: [Brief description of the service]
+   ```
 
-**Use your preferred IDE**
+4. Add your service name to `public/docker-composes/index.json`
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+5. Create a pull request with your changes
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Guidelines for Contributions
 
-Follow these steps:
+- Keep configurations simple and focused
+- Include necessary documentation and default values
+- Use official Docker images when possible
+- Follow the existing file structure
+- Test your configuration before submitting
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## License
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/79c3977f-5bdd-49e8-b423-80d25799304a) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project is open source and available under the MIT License.
