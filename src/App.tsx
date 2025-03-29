@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { initializeData } from "./lib/data";
-import CategoryPage from "./pages/CategoryPage";
 import DetailPage from "./pages/DetailPage";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -26,7 +25,6 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
             <Route path="/compose/:id" element={<DetailPage />} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { categories } from '@/lib/data';
 import { Github, Menu, Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -155,16 +154,6 @@ const Navbar: React.FC = () => {
                   >
                     Home
                   </Link>
-
-                  {categories.map((category) => (
-                    <Link
-                      key={category.id}
-                      to={`/category/${category.id}`}
-                      className="px-2 py-1.5 rounded-md hover:bg-accent flex items-center"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
 
                   <div className="pt-4 mt-4 border-t border-border">
                     <a
