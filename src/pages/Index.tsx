@@ -39,7 +39,7 @@ const Index = () => {
               href="#featured"
               className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              Featured Templates
+              Browse Compose Files
             </a>
           </div>
         </div>
@@ -68,15 +68,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Section */}
+      {/* Templates Section */}
       <section id="featured" className="scroll-mt-20">
         <div className="mb-10">
           <div className="inline-block rounded bg-primary/10 px-3 py-1 text-sm text-primary mb-2">
-            Featured
+            Files
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-2">Popular templates</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-2">Useful compose files</h2>
           <p className="text-muted-foreground">
-            Most downloaded and starred Docker Compose configurations
+            Ready-to-use Docker Compose configurations for various applications
           </p>
         </div>
 
@@ -94,7 +94,7 @@ const Index = () => {
       {/* Stats Section */}
       <section className="py-10">
         <div className="rounded-2xl border border-border bg-card p-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="text-center">
               <p className="text-4xl font-bold">{composeFiles.length}</p>
               <p className="text-muted-foreground mt-2">Total Compose Files</p>
@@ -102,10 +102,6 @@ const Index = () => {
             <div className="text-center">
               <p className="text-4xl font-bold">{categories.length}</p>
               <p className="text-muted-foreground mt-2">Categories</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold">{composeFiles.reduce((sum, file) => sum + file.downloads, 0)}</p>
-              <p className="text-muted-foreground mt-2">Total Downloads</p>
             </div>
           </div>
         </div>

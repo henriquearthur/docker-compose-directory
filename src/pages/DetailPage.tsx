@@ -1,5 +1,7 @@
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { ComposeFile, getComposeFileById } from '@/lib/data';
-import { Loader2 } from 'lucide-react';
+import { ArrowLeft, Copy, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -8,6 +10,7 @@ const DetailPage: React.FC = () => {
   const navigate = useNavigate();
   const [composeFile, setComposeFile] = useState<ComposeFile | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     const loadComposeFile = async () => {
@@ -39,6 +42,20 @@ const DetailPage: React.FC = () => {
     loadComposeFile();
   }, [id, navigate]);
 
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(composeFile?.content || '');
+      toast({
+        description: "Docker Compose file copied to clipboard",
+      });
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        description: "Failed to copy to clipboard",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
@@ -55,6 +72,14 @@ const DetailPage: React.FC = () => {
   // Render your compose file details here
   return (
     <div className="container py-10">
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-6 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ArrowLeft className="h-5 w-5 mr-2" />
+        Back
+      </button>
+
       <h1 className="text-3xl font-bold mb-6">{composeFile.name}</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left column with metadata */}
@@ -62,27 +87,11 @@ const DetailPage: React.FC = () => {
           <div className="rounded-lg border border-border p-6 bg-card">
             <p className="text-muted-foreground mb-4">{composeFile.description}</p>
 
-            <div className="mb-4">
+            <div className="">
               <h3 className="font-medium mb-2">Category</h3>
               <span className="px-2 py-1 rounded-full bg-secondary text-secondary-foreground text-sm">
                 {composeFile.category}
               </span>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="font-medium mb-2">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {composeFile.tags.map(tag => (
-                  <span key={tag} className="px-2 py-1 rounded-full bg-secondary text-secondary-foreground text-xs">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex justify-between items-center text-sm text-muted-foreground">
-              <div>Stars: {composeFile.stars}</div>
-              <div>Downloads: {composeFile.downloads}</div>
             </div>
           </div>
         </div>
@@ -90,7 +99,18 @@ const DetailPage: React.FC = () => {
         {/* Right column with compose file content */}
         <div className="md:col-span-2">
           <div className="rounded-lg border border-border p-6 bg-card">
-            <h2 className="text-xl font-bold mb-4">docker-compose.yml</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">docker-compose.yml</h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={copyToClipboard}
+                className="flex items-center gap-2"
+              >
+                <Copy className="h-4 w-4" />
+                Copy
+              </Button>
+            </div>
             <pre className="p-4 bg-secondary rounded-md overflow-auto">
               <code>{composeFile.content}</code>
             </pre>

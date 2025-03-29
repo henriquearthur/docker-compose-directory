@@ -2,8 +2,6 @@ import { ComposeFileInfo, getComposeFiles } from './fs';
 
 export interface ComposeFile extends ComposeFileInfo {
   tags: string[];
-  stars: number;
-  downloads: number;
 }
 
 export interface Category {
@@ -80,9 +78,7 @@ composeFiles = [
     category: "databases",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    tags: [],
-    stars: 0,
-    downloads: 0
+    tags: []
   }
 ];
 
@@ -96,9 +92,7 @@ export async function initializeData() {
   composeFiles.length = 0; // Clear existing items
   composeFiles.push(...files.map(file => ({
     ...file,
-    tags: [],
-    stars: 0,
-    downloads: 0
+    tags: []
   })));
 
   // Set data as initialized

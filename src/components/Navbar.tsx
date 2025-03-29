@@ -1,17 +1,13 @@
-
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { categories } from '@/lib/data';
-import { Github, Menu, Moon, Search, Sun } from 'lucide-react';
+import { Github, Menu, Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
   const location = useLocation();
 
   useEffect(() => {
@@ -23,31 +19,13 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('dark');
-      setIsDarkMode(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDarkMode(true);
-    }
-  };
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
-
   const isSearchVisible = location.pathname === '/';
 
   return (
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
-          : 'bg-transparent'
+        ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
+        : 'bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,28 +97,6 @@ const Navbar: React.FC = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {!isSearchVisible && (
-              <Link
-                to="/"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Home
-              </Link>
-            )}
-
-            {categories.slice(0, 4).map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.id}`}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {category.name}
-              </Link>
-            ))}
-          </nav>
-
           {/* Search Bar (Desktop) */}
           {isSearchVisible && (
             <div className="hidden md:block flex-1 max-w-md mx-8">
@@ -150,21 +106,6 @@ const Navbar: React.FC = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center">
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="mr-2"
-              onClick={toggleTheme}
-              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDarkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-
             {/* GitHub Link */}
             <Button
               variant="ghost"
@@ -173,7 +114,7 @@ const Navbar: React.FC = () => {
               asChild
             >
               <a
-                href="https://github.com"
+                href="https://github.com/henriquearthur/docker-compose-directory"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Repository"
@@ -227,7 +168,7 @@ const Navbar: React.FC = () => {
 
                   <div className="pt-4 mt-4 border-t border-border">
                     <a
-                      href="https://github.com"
+                      href="https://github.com/henriquearthur/docker-compose-directory"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-2 py-1.5 rounded-md hover:bg-accent flex items-center"
