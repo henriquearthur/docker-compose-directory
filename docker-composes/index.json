@@ -8,5 +8,10 @@
     "rabbitmq",
     "wordpress",
     "growthbook",
-    "gitlab"
+    "gitlab",
+    "jenkins",
+    "sonarqube",
+    "minio",
+    "keycloak",
+    "portainer"
 ]
