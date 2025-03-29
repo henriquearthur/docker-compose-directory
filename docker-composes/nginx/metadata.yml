@@ -1,0 +1,3 @@
+id: nginx
+name: Nginx Web Server
+description: Nginx web server with SSL support and configurable volumes
