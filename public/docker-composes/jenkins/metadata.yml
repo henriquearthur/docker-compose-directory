@@ -1,0 +1,3 @@
+id: jenkins
+name: Jenkins
+description: Jenkins automation server for CI/CD pipelines

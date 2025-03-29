@@ -1,0 +1,3 @@
+id: sonarqube
+name: SonarQube
+description: Code quality and security analysis platform with PostgreSQL database
