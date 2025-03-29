@@ -67,16 +67,6 @@ const Index = () => {
           ))}
         </div>
       </section>
-
-      {/* Stats Section */}
-      <section className="py-10">
-        <div className="rounded-2xl border border-border bg-card p-8">
-          <div className="text-center">
-            <p className="text-4xl font-bold">{files.length}</p>
-            <p className="text-muted-foreground mt-2">Total Compose Files</p>
-          </div>
-        </div>
-      </section>
     </LayoutWrapper>
   );
 };

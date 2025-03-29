@@ -4,5 +4,9 @@
     "postgresql",
     "nginx",
     "redis",
-    "kafka"
+    "kafka",
+    "rabbitmq",
+    "wordpress",
+    "growthbook",
+    "gitlab"
 ]

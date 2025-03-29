@@ -91,9 +91,6 @@ const Navbar: React.FC = () => {
                 />
               </svg>
             </div>
-            <span className="font-medium text-foreground hidden sm:inline-block">
-              Docker Compose Directory
-            </span>
           </Link>
 
           {/* Search Bar (Desktop) */}
