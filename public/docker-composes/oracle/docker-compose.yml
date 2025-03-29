@@ -1,0 +1,15 @@
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - ORACLE_CHARACTERSET=AL32UTF8
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    shm_size: '2gb'
+
+volumes:
+  oracle_data:

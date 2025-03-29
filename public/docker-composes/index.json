@@ -1,11 +1,12 @@
 [
     "mysql",
-    "mongodb",
     "postgresql",
-    "nginx",
-    "redis",
+    "oracle",
+    "mongodb",
     "kafka",
     "rabbitmq",
+    "redis",
+    "nginx",
     "wordpress",
     "growthbook",
     "gitlab",
@@ -13,5 +14,8 @@
     "sonarqube",
     "minio",
     "keycloak",
-    "portainer"
+    "portainer",
+    "elasticsearch",
+    "grafana",
+    "ollama"
 ]
