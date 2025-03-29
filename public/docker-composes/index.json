@@ -3,5 +3,6 @@
     "mongodb",
     "postgresql",
     "nginx",
-    "redis"
+    "redis",
+    "kafka"
 ]
