@@ -1,0 +1,12 @@
+[
+    "mysql",
+    "mongodb",
+    "postgresql",
+    "nginx",
+    "redis",
+    "kafka",
+    "rabbitmq",
+    "wordpress",
+    "growthbook",
+    "gitlab"
+]

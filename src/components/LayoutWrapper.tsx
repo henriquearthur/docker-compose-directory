@@ -1,8 +1,8 @@
 
+import { getAnimationStyle } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 import React from 'react';
 import Navbar from './Navbar';
-import { cn } from '@/lib/utils';
-import { getAnimationStyle } from '@/lib/animations';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, className }) =>
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main 
+      <main
         className={cn(
           "flex-1 py-10 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full",
           className
@@ -25,17 +25,11 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, className }) =>
       <footer className="py-6 px-4 bg-background border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            docker-compose-directory © {new Date().getFullYear()}
+            Made with ❤️ by <a href="https://github.com/henriquearthur" target='_blank'>Henrique Arthur</a>
           </p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="https://github.com/henriquearthur/docker-compose-directory" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               GitHub
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Documentation
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              About
             </a>
           </div>
         </div>

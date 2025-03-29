@@ -1,0 +1,3 @@
+id: rabbitmq
+name: RabbitMQ
+description: RabbitMQ message broker with management interface
