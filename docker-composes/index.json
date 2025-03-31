@@ -2,6 +2,7 @@
     "mysql",
     "postgresql",
     "oracle",
+    "sql-server",
     "mongodb",
     "kafka",
     "rabbitmq",
