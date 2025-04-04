@@ -1,0 +1,8 @@
+id: mariadb
+name: MariaDB
+description: 
+  MariaDB is a community-developed, commercially supported fork of MySQL.
+  It is a relational database management system (RDBMS) that is widely used for web applications.
+  MariaDB is known for its speed, scalability, and reliability.
+  It is often used as a drop-in replacement for MySQL.
+  MariaDB is open-source and is available under the GNU General Public License.
