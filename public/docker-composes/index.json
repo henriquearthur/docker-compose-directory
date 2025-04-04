@@ -1,5 +1,6 @@
 [
     "mysql",
+    "mariadb",
     "postgresql",
     "oracle",
     "sql-server",
